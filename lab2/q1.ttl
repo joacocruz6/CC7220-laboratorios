@@ -1,9 +1,21 @@
 @prefix ex: <http://ex.org />.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-
+ex:ThePuconSymposium2019 a ex:symposium;
+ex:organized ex:MatematicalModelingCenter;
+ex:name "The Pucon Symposium 2019"@en, "Simposio de pucon 2019"@es;
+ex:date "2019-08-06"^^xsd:date ;
+ex:duration "P3D"^^xsd:duration;
+ex:in ex:HotelSolace.
+ex:HotelSolace a ex:Hotel;
+ex:in ex:PuertoVaras.
+ex:PuertoVaras a ex:city;
+ex:province ex:Llanquihue;
+ex:region ex:LosLagos;
+ex:country ex:Chile.
+ex:PuertoVaras ex:censo[ex:year 2012 ; ex:population 37561].
 ex:PuertoMontt rdf:type ex:City ; ex:population [ex:census "2017"^^xsd:gYear ; ex:habitants 245902] ; ex:name "Puerto Montt"@es .
-ex:MatematicalModelingCenter ex:partOf ex:FCFM; a researchCentre .
+ex:MatematicalModelingCenter ex:partOf ex:FCFM; a ex:researchCentre .
 ex:FCFM ex:name "Faculty of Physical Sciences and Mathematics"@en, "Facultad de ciencias Físicas y Matemáticas"@es;
 ex:partOf ex:UChile .
 ex:UChile ex:name "University of Chile"@en, "Universidad de Chile"@es .
