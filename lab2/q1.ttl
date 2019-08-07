@@ -1,0 +1,9 @@
+@prefix ex: <http://ex.org />.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+ex:PuertoMontt rdf:type ex:City ; ex:population [ex:census "2017"^^xsd:gYear ; ex:habitants 245902] ; ex:name "Puerto Montt"@es .
+ex:MatematicalModelingCenter ex:partOf ex:FCFM; a researchCentre .
+ex:FCFM ex:name "Faculty of Physical Sciences and Mathematics"@en, "Facultad de ciencias Físicas y Matemáticas"@es;
+ex:partOf ex:UChile .
+ex:UChile ex:name "University of Chile"@en, "Universidad de Chile"@es .
