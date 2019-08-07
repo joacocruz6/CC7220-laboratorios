@@ -1,0 +1,7 @@
+@prefix ex: <http://ex.org />
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:TheFourSeasonConcerti rdf:type ex:concerti;
+ex:name "The Four Seasons"@en, "Le quattro stagioni"@it;
+ex:duration "PT40M"^^xsd:duration; ex: published[ex:year 1725; ex:place "Amsterdam"]
