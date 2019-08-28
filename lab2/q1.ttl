@@ -4,7 +4,7 @@
 ex:ThePuconSymposium2019 a ex:symposium;
 ex:organized ex:MatematicalModelingCenter;
 ex:name "The Pucon Symposium 2019"@en, "Simposio de pucon 2019"@es;
-ex:date "2019-08-06"^^xsd:date ;
+ex:initialDate "2019-08-06"^^xsd:date ;
 ex:duration "P3D"^^xsd:duration;
 ex:in ex:HotelSolace.
 ex:HotelSolace a ex:Hotel;

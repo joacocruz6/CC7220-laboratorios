@@ -1,0 +1,58 @@
+# Grupo: Joaquin Cruz Raúl Cid
+@prefix ex:  <http://ex.org/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+ex:Sol a ex:MainSequenceStar ; ex:galaxy ex:MilkyWay .
+
+ex:Mercury a ex:Planet ; ex:hasParent ex:Sol .
+ex:Venus a ex:Planet ; ex:hasParent ex:Sol .
+ex:Earth a ex:Planet ; ex:hasParent ex:Sol ; ex:hasLargestMoon ex:Luna .
+ex:Mars a ex:Planet ; ex:hasParent ex:Sol ; ex:hasLargestMoon ex:Phobos .
+ex:Jupiter a ex:Planet ; ex:hasParent ex:Sol ; ex:hasLargestMoon ex:Ganymede .
+ex:Saturn a ex:Planet ; ex:hasParent ex:Sol ; ex:hasLargestMoon ex:Titan .
+ex:Uranus a ex:Planet ; ex:hasParent ex:Sol ; ex:hasLargestMoon ex:Triton .
+ex:Neptune a ex:Planet ; ex:hasParent ex:Sol ; ex:hasLargestMoon ex:Titania .
+ex:Pluto a ex:DwarfPlanet ; ex:hasParent ex:Sol ; ex:hasLargestMoon ex:Charon .
+ex:Ceres a ex:DwarfPlanet ; ex:hasParent ex:Sol .
+
+ex:Luna ex:radiusKm 1737.1 .
+ex:Selene ex:largestMoonOf ex:Earth ; ex:firstVisitedBy ex:NeilArmstrong , ex:BuzzAldrin .
+ex:Phobos ex:radiusKm 11.3 ; ex:discoveredBy ex:AsaphHall .
+ex:Ganymede ex:radiusKm 2634.1 ; ex:discoveredBy ex:GalileoGalilei .
+ex:Titan ex:radiusKm 2634.1 ; ex:discoveredBy ex:ChristiaanHuygens .
+ex:Triton ex:radiusKm 2574.73 ; ex:discoveredBy ex:WilliamLassell .
+ex:Titania ex:radiusKm 788.4 ; ex:discoveredBy ex:WilliamHerschel .
+ex:Charon ex:radiusKm 606 ; ex:discoveredBy ex:JamesWChristy .
+
+ex:Luhman16A a ex:BinaryStar ; ex:hasSibling ex:Luhman16B ; ex:galaxy ex:MilkyWay .
+ex:Luhman16a a ex:BinaryStar ; ex:hasSibling ex:Luhman16B ; ex:constellation ex:Vela . 
+
+#Q1
+ex:hasLargestMoon owl:inverseOf ex:largestMoonOf .
+#Q2
+ex:largestMoonOf rdfs:subPropertyOf ex:moonOf .
+ex:hasParent rdfs:subPropertyOf ex:hasAntecedent .
+ex:moonOf rdfs:subPropertyOf ex:hasParent .
+#Q3
+ex:hasAntecedent rdfs:type owl:TransitiveProperty .
+#Q4
+ex:hasSibling rdf:type owl:SymmetricProperty .
+#Q5
+ex:hasParent owl:inverseOf ex:parentOf .
+#Q6
+ex:hasSibling owl:propertyChainAxiom (ex:hasParent ex:parentOf) .
+#Q7
+ex:hasSibling rdf:type owl:IrreflexiveProperty .
+#Q8
+ex:galaxy owl:propertyChainAxiom (ex:hasParent ex:galaxy) .
+ex:galaxy owl:propertyChainAxiom (ex:hasSibling ex:galaxy) .
+#Q9
+ex:hasLargestMoon rdf:type owl:InverseFunctionalProperty .
+#Q10
+ex:firstVisitedBy rdf:type owl:FunctionalProperty .
+ex:NeilArmstrong owl:differentFrom ex:BuzzAldrin
+#Q11
+ex:BinaryStar owl:hasKey ( ex:hasSibling ) .
