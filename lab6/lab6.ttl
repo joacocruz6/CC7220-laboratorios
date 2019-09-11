@@ -1,0 +1,42 @@
+@prefix ex:  <http://ex.org/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+ex:dam a owl:ObjectProperty .
+ex:sire a owl:ObjectProperty .
+ex:twin a owl:ObjectProperty .
+
+ex:Zach a ex:Zebroid ; ex:dam ex:Lea ; ex:sire ex:Marty .
+ex:Zia ex:dam ex:Lea ; ex:sire ex:Marty .
+
+ex:Zeb a ex:Zorse ; ex:dam ex:Lea ; ex:sire ex:Zamba .
+ex:Zab ex:dam ex:Lea ; ex:sire ex:Zamba .
+
+ex:Trip a ex:Horse ; ex:dam ex:Canela ; ex:sire ex:Jupiter .
+ex:Hannah ex:dam ex:Zeta ; ex:sire ex:Jupiter .
+ex:Zeta a ex:Zebra .
+
+ex:Zeus a ex:Zonkey ; ex:twin ex:Zev .
+
+ex:dam rdfs:subPropertyOf ex:parent .
+ex:sire rdfs:subPropertyOf ex:parent .
+
+ex:Zebra rdfs:subClassOf ex:Equine .
+ex:Donkey rdfs:subClassOf ex:Equine .
+ex:Horse rdfs:subClassOf ex:Equine .
+ex:Zebroid rdfs:subClassOf ex:Equine .
+ex:Zorse rdfs:subClassOf ex:Equine .
+ex:Hebra rdfs:subClassOf ex:Equine .
+ex:Zonkey rdfs:subClassOf ex:Equine .
+
+[ a owl:AllDisjointClasses ;
+  owl:members ( ex:Zebroid ex:Zebra ex:Donkey ex:Horse ) ] .
+
+# Q1
+ex:sire owl:propertyDisjointWith ex:dam .
+ex:Equine rdfs:subClassOf [ owl:cardinality 2 ; owl:onProperty ex:parent ] .
+ex:Zebroid owl:equivalentClass [ owl:intersectionOf ( [ owl:onProperty ex:parent ; owl:someValuesFrom ex:Zebra ] [ owl:onProperty ex:parent ; owl:someValuesFrom ex:NonZebraEquine ] ) ] .
+ex:NonZebraEquine owl:equivalentClass [ owl:intersectionOf ( ex:Equine [ owl:complementOf ex: Zebra] ) ] .
+# Q2
