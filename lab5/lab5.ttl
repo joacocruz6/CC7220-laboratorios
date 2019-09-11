@@ -1,0 +1,48 @@
+@prefix ex:  <http://ex.org/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+ex:Sol a ex:LoneStar .
+
+ex:Mercury a ex:Planet ; ex:hasParent ex:Sol .
+ex:Venus a ex:Planet ; ex:hasParent ex:Sol .
+ex:Earth a ex:Planet ; ex:hasParent ex:Sol ; ex:hasChild ex:Luna .
+ex:Mars a ex:Planet ; ex:hasParent ex:Sol ; ex:hasChild ex:Phobos .
+ex:Jupiter a ex:Planet ; ex:hasParent ex:Sol ; ex:hasChild ex:Ganymede .
+ex:Saturn a ex:Planet ; ex:hasParent ex:Sol ; ex:hasChild ex:Titan .
+ex:Uranus a ex:Planet ; ex:hasParent ex:Sol ; ex:hasChild ex:Triton .
+ex:Neptune a ex:Planet ; ex:hasParent ex:Sol ; ex:hasChild ex:Titania .
+ex:Pluto a ex:DwarfPlanet ; ex:hasParent ex:Sol ; ex:hasChild ex:Charon .
+ex:Charon a ex:SolarPlanemo ; ex:hasParent ex:Sol .
+ex:Ceres a ex:DwarfPlanet ; a ex:SolarBody ; ex:hasStar ex:Sun .
+
+ex:Phobos ex:discoveredBy ex:AsaphHall .
+ex:Ganymede ex:discoveredBy ex:GalileoGalilei .
+ex:Titan ex:discoveredBy ex:ChristiaanHuygens .
+ex:Triton ex:discoveredBy ex:WilliamLassell .
+ex:Titania ex:discoveredBy ex:WilliamHerschel .
+ex:Charon ex:discoveredBy ex:JamesWChristy .
+
+ex:AlphaCenturiA a ex:TripleStar ; ex:hasSibling ex:AlphaCenturiB , ex:AlphaCenturiC , ex:ProximaCenturi .
+ex:AlphaCenturiB a ex:YellowDwarfStar .   
+ex:AlphaCenturiC a ex:RedDwarfStar .    
+ex:ProximaCenturi a ex:RedDwarfStar .
+
+ex:hasParent owl:inverseOf ex:hasChild ; rdfs:subPropertyOf ex:hasAntecedent .
+ex:hasStar rdfs:range ex:Star ; rdfs:subPropertyOf ex:hasAntecedent .
+ex:hasAntecedent a owl:TransitiveProperty .
+ex:discoveredBy owl:inverseOf ex:discovered .
+ex:hasSibling a owl:SymmetricProperty .
+ex:TripleStar rdfs:subClassOf ex:Star .
+ex:LoneStar rdfs:subClassOf ex:Star .
+
+#Q1
+ex:Planemo owl:equivalentClass [ owl:unionOf ( ex:Planet ex:DwarfPlanet ) ] .
+#Q2
+ex:Planemo rdfs:subClassOf [ owl:allValuesFrom ex:Moon ; owl:onProperty ex:hasChild ] .
+#Q3
+[ owl:unionOf ( ex:Planemo ex:Moon ex:Star ) ] rdfs:subClassOf ex:AstronomicBody
+#Q4
+ex:SolarBody owl:equivalentClass [ owl:someValuesFrom ]
