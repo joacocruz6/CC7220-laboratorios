@@ -1,0 +1,77 @@
+# Alumnos: Joaquin Cruz, Josefa Robert
+@prefix ex:  <http://ex.org/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+ex:dam a owl:ObjectProperty .
+ex:sire a owl:ObjectProperty .
+ex:twin a owl:ObjectProperty .
+
+ex:Zach a ex:Zebroid ; ex:dam ex:Lea ; ex:sire ex:Marty .
+ex:Zia ex:dam ex:Lea ; ex:sire ex:Marty .
+
+ex:Zeb a ex:Zorse ; ex:dam ex:Lea ; ex:sire ex:Zamba .
+ex:Zab ex:dam ex:Lea ; ex:sire ex:Zamba .
+
+ex:Trip a ex:Horse ; ex:dam ex:Canela ; ex:sire ex:Jupiter .
+ex:Hannah ex:dam ex:Zeta ; ex:sire ex:Jupiter .
+ex:Zeta a ex:Zebra .
+
+ex:Zeus a ex:Zonkey ; ex:twin ex:Zev .
+
+ex:dam rdfs:subPropertyOf ex:parent .
+ex:sire rdfs:subPropertyOf ex:parent .
+
+ex:Zebra rdfs:subClassOf ex:Equine .
+ex:Donkey rdfs:subClassOf ex:Equine .
+ex:Horse rdfs:subClassOf ex:Equine .
+ex:Zebroid rdfs:subClassOf ex:Equine .
+ex:Zorse rdfs:subClassOf ex:Equine .
+ex:Hebra rdfs:subClassOf ex:Equine .
+ex:Zonkey rdfs:subClassOf ex:Equine .
+
+[ a owl:AllDisjointClasses ;
+  owl:members ( ex:Zebroid ex:Zebra ex:Donkey ex:Horse ) ] .
+
+
+
+
+#Q1 
+
+
+ex:sire owl:propertyDisjointWith ex:dam .
+ex:Equine rdfs:subClassOf [ owl:cardinality 2 ; owl:onProperty ex:parent ] .
+
+ex:Zebroid owl:equivalentClass [ owl:intersectionOf ( [ owl:onProperty ex:parent ; owl:someValuesFrom ex:Zebra ] [ owl:onProperty ex:parent ; owl:someValuesFrom ex:NonZebraEquine ] ) ] .
+ex:NonZebraEquine owl:equivalentClass [ owl:intersectionOf ( ex:Equine [ owl:complementOf ex:Zebra] ) ] .
+
+# Q2
+
+ex:Zorse owl:equivalentClass [ owl:intersectionOf ( [ owl:onProperty ex:sire ; owl:someValuesFrom ex:Zebra ] [ owl:onProperty ex:dam ; owl:someValuesFrom ex:Horse ] ) ] .
+
+ 
+#De Q2 se tiene que los padre del zorse Zeb cumplen: Lea->horse + Zambra->zebra,  esto sumado a que de Q1  los padres del zebroide Zach cumplen: Lea->Zebra + Marty->NonZebraEquine o   Marty->Zebra + Lea->NonZebraEquine  resulta en que solo es posible la segunda opci�n, es decir,  Marty->zebra y Lea->horse/NonZebraEquine. Como Zach y Zia tienen como sire a la zebra Marty  y como dam al horse Lea se cumple la condicion para que tambi�n sean zorses.
+
+#Q3 
+
+ex:Hebra owl:equivalentClass [ owl:intersectionOf ( [ owl:onProperty ex:dam ; owl:someValuesFrom ex:Zebra ] [ owl:onProperty ex:sire ; owl:someValuesFrom ex:Horse ] ) ] .
+
+ex:Horse owl:equivalentClass  [ owl:onProperty ex:parent ; owl:allValuesFrom ex:Horse ] .
+
+
+#Q4
+#ex:Herodotus a ex:Hebra , ex:Zorse .
+# como Herodotus es tipo Hebra tiene un dam que es tipo Zebra pero adem�s por ser Zorse tiene un dam que es tipo Horse. Estos ''dam'' deben ser el mismo individuo (por la cardinalidad 2 de la propiedad parent y que el otro parent es tipo sire) pero Zebra es disjunto con Horse.
+
+#Q5 
+ex:twin rdf:type owl:SymmetricProperty .
+ex:Zonkey owl:equivalentClass [ owl:unionOf ( [ owl:intersectionOf ( [ owl:onProperty ex:parent ; owl:someValuesFrom ex:Zebra ] [ owl:onProperty ex:parent ; owl:someValuesFrom ex:Donkey ] ) ] [ owl:onProperty ex:twin ; owl:someValuesFrom ex:Zonkey ] ) ].
+
+#ex:parentOf owl:inverseOf ex:parent .
+#ex:parentOf owl:propertyChainAxiom (ex:parentOf ex:twin) . -------- no funciona por el interprete de inferencias que estamos usando
+
+
+
+

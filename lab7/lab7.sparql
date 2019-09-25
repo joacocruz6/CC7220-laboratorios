@@ -1,0 +1,57 @@
+#Q1
+SELECT ?cityLabel WHERE {
+  wd:Q884 wdt:P36 ?city.
+  ?city rdfs:label ?cityLabel.
+  FILTER((LANG(?cityLabel)) = "en")
+}
+#Q2
+SELECT ?cityLabel ?population WHERE {
+  wd:Q884 wdt:P36 ?city.
+  ?city wdt:P1082 ?population.
+  ?city rdfs:label ?cityLabel
+  FILTER((LANG(?cityLabel)) = "en")
+}
+#Q3 (tuvimos que cambiar cambiar el pais a chile pues korea no tenia premios nobel de literatura)
+SELECT ?personLabel WHERE {
+  ?person wdt:P27 wd:Q298.
+  ?person wdt:P166 wd:Q37922.
+  ?person rdfs:label ?personLabel.
+  FILTER((LANG(?personLabel)="en"))
+}
+#Q4
+SELECT ?personLabel ?dateDied WHERE {
+  ?person wdt:P27 wd:Q298.
+  ?person wdt:P166 wd:Q37922.
+  ?person rdfs:label ?personLabel.
+  OPTIONAL{?person wdt:P570 ?dateDied}
+  FILTER((LANG(?personLabel)="en"))
+}
+#Q5
+SELECT DISTINCT ?personLabel WHERE {
+  {?person wdt:P166 wd:Q44585}
+  UNION
+  {?person wdt:P166 wd:Q852317}
+  UNION
+  {?person wdt:P166 wd:Q80061}
+  ?person wdt:P27 wd:Q30.
+  ?person rdfs:label ?personLabel.
+  #OPTIONAL{?person wdt:P570 ?dateDied}
+  FILTER((LANG(?personLabel)="en"))
+}
+#Q6
+SELECT ?states WHERE {
+  ?states wdt:P31 wd:Q3624078.
+  OPTIONAL{?states wdt:P576 ?date.}
+  FILTER(!BOUND(?date))
+}
+#Q7
+SELECT ?name ?pib WHERE {
+  ?states wdt:P31 wd:Q3624078.
+  OPTIONAL{?states wdt:P576 ?date.}
+  FILTER(!BOUND(?date)).
+  ?states wdt:P2131 ?pib;
+          rdfs:label ?name.
+  FILTER(lang(?name)="en")
+}
+  ORDER BY DESC(?pib)
+  LIMIT 10
