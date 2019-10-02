@@ -1,0 +1,72 @@
+#Q1
+SELECT ?taxon ?img
+WHERE {
+    ?taxon wdt:P141 ?status ;
+           rdfs:label ?name .
+    VALUES ?status { wd:Q237350 wd:Q239509 }
+    FILTER(LANG(?name)="en")
+    OPTIONAL {?taxon wdt:P18 ?img}
+}
+#Q2
+SELECT ?name ?img
+WHERE {
+    ?taxon wdt:P183/wdt:P17? wd:Q298;
+           rdfs:label ?name .
+    FILTER(LANG(?name)="en")
+    OPTIONAL {?taxon wdt:P18 ?img}
+}
+#Q3
+SELECT ?name (SAMPLE(?img) as ?simg)
+WHERE {
+    ?taxon wdt:P183/wdt:P17? wd:Q298;
+           rdfs:label ?name .
+    FILTER(LANG(?name)="en")
+    OPTIONAL {?taxon wdt:P18 ?img}
+}
+GROUP BY ?name
+#Q4
+SELECT ?statusName (COUNT(DISTINCT(?taxon)) as ?count)
+WHERE {
+    ?taxon wdt:P141 ?status;
+           wdt:P183/wdt:P17? wd:Q298;
+           rdfs:label ?name .
+    ?status rdfs:label ?statusName .
+    FILTER(LANG(?statusName)="en")
+}
+GROUP BY ?statusName
+ORDER BY DESC(?count)
+# Desde aca en adelante en los wdt:P183 cambiar por wdt:P183/wdt:P17?
+#Q5
+SELECT ?name ?statusName ?img
+WHERE {
+    ?taxon wdt:P141 ?status;
+           wdt:P183/wdt:P17? wd:Q298;
+           rdfs:label ?name .
+    VALUES ?status { wd:Q11394 wd:Q219127 wd:Q237350 }
+    ?status rdfs:label ?statusName .
+    FILTER(LANG(?statusName)="en")
+    FILTER(LANG(?name)="en")
+    OPTIONAL {?taxon wdt:P18 ?img}
+}
+#Q6
+SELECT ?name ?statusName ?img
+WHERE {
+    ?taxon wdt:P171+ wd:Q7377;
+           wdt:P141 ?status;
+           wdt:P183/wdt:P17? wd:Q298;
+           rdfs:label ?name .
+    VALUES ?status { wd:Q11394 wd:Q219127 wd:Q237350 }
+    ?status rdfs:label ?statusName .
+    FILTER(LANG(?statusName)="en")
+    FILTER(LANG(?name)="en")
+    OPTIONAL {?taxon wdt:P18 ?img}
+}
+LIMIT 1
+#Q7
+SELECT (COUNT(DISTINCT(?siblingName)) as ?siblingCount)
+WHERE {
+    wd:Q755733 wdt:P171/^wdt:P171 ?sibling .
+    FILTER(?sibling != wd:Q755733)
+    ?sibling rdfs:label ?siblingName .
+    FILTER(LANG(?siblingName)="en")
+}
