@@ -38,5 +38,22 @@ ex:Zonkey rdfs:subClassOf ex:Equine .
 ex:sire owl:propertyDisjointWith ex:dam .
 ex:Equine rdfs:subClassOf [ owl:cardinality 2 ; owl:onProperty ex:parent ] .
 ex:Zebroid owl:equivalentClass [ owl:intersectionOf ( [ owl:onProperty ex:parent ; owl:someValuesFrom ex:Zebra ] [ owl:onProperty ex:parent ; owl:someValuesFrom ex:NonZebraEquine ] ) ] .
-ex:NonZebraEquine owl:equivalentClass [ owl:intersectionOf ( ex:Equine [ owl:complementOf ex: Zebra] ) ] .
+ex:NonZebraEquine owl:equivalentClass [ owl:intersectionOf ( ex:Equine [ owl:complementOf ex:Zebra] ) ] .
+
 # Q2
+ex:Zorse owl:equivalentClass [ owl:intersectionOf ( [ owl:onProperty ex:sire ; owl:someValuesFrom ex:Zebra ] [ owl:onProperty ex:dam ; owl:someValuesFrom ex:Horse ] ) ] .
+
+ 
+#De Q2 se tiene que los padre del zorse Zeb cumplen: Lea->horse + Zambra->zebra,  esto sumado a que de Q1  los padres del zebroide Zach cumplen: Lea->Zebra + Marty->NonZebraEquine o   Marty->Zebra + Lea->NonZebraEquine  resulta en que solo es posible la segunda opción, es decir,  Marty->zebra y Lea->horse/NonZebraEquine. Como Zach y Zia tienen como sire a la zebra Marty  y como dam al horse Lea se cumple la condicion para que también sean zorses.
+
+#Q3 
+
+ex:Hebra owl:equivalentClass [ owl:intersectionOf ( [ owl:onProperty ex:dam ; owl:someValuesFrom ex:Zebra ] [ owl:onProperty ex:sire ; owl:someValuesFrom ex:Horse ] ) ] .
+
+ex:Horse owl:equivalentClass  [ owl:onProperty ex:parent ; owl:allValuesFrom ex:Horse ] .
+
+
+
+
+
+
