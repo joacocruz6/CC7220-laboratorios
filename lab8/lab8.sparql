@@ -70,3 +70,30 @@ WHERE {
     ?sibling rdfs:label ?siblingName .
     FILTER(LANG(?siblingName)="en")
 }
+#Q8
+SELECT ?taxon ?numberSibling
+WHERE {
+ {SELECT (MAX(?numberSibling) as ?m) #Encontrar el maximo
+    WHERE{
+        SELECT ?taxon (COUNT(DISTINCT(?siblingName)) as ?numberSibling)
+            WHERE {
+            ?taxon wdt:P171/^wdt:P171 ?sibling ;
+                   wdt:P183/wdt:P17? wd:Q298 .
+            FILTER(?sibling != ?taxon)
+            ?sibling rdfs:label ?siblingName .
+            FILTER(LANG(?siblingName)="en")
+            }GROUP BY ?taxon
+        }
+    }
+  {SELECT ?taxon (COUNT(DISTINCT(?siblingName)) as ?numberSibling) #contar
+    WHERE {
+        ?taxon wdt:P171/^wdt:P171 ?sibling ;
+               wdt:P183/wdt:P17? wd:Q298 .
+        FILTER(?sibling != ?taxon)
+        ?sibling rdfs:label ?siblingName .
+        FILTER(LANG(?siblingName)="en")
+    }GROUP BY ?taxon
+  }
+  FILTER(?numberSibling=?m)
+}
+#Q9
